@@ -1,11 +1,18 @@
-extends Area2D
+extends CharacterBody2D
 
-var rotation_speed: int = 4
+@export var rotation_speed: int = 4
+@export var growth_speed: int = 2
+@export var friction: int = 140
+@export var move_speed: int = 350
+
 var available_options = ["laser", "laser", "laser", "laser", "grenade", "health"]
 var type = available_options[randi()%len(available_options)]
-
 var direction: Vector2
-var distance: int = randi_range(150, 250)
+
+@onready var audio_player = $AudioStreamPlayer2D
+@onready var sprite = $Sprite2D
+@onready var collision_shape = $CollisionShape2D
+@onready var retrieval_hurtbox_shape = $RetrievalHurtbox/CollisionShape2D
 
 func _ready():
 	if type == "laser":
@@ -17,18 +24,18 @@ func _ready():
 	if type == "health":
 		$Sprite2D.modulate = Color(0.1, 0.8, 0.1)
 	
-	#tween
-	var target_pos = position + direction * distance
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(self, "position", target_pos, 0.5)
-	tween.tween_property(self, "scale", Vector2(1,1), 0.3).from(Vector2(0,0))
+	scale = Vector2.ZERO
+	velocity = direction * move_speed
+
 
 func _process(delta):
 	rotation += rotation_speed * delta
+	velocity = velocity.move_toward(Vector2.ZERO, delta * friction)
+	scale = scale.move_toward(Vector2(1, 1), delta * growth_speed)
+	move_and_slide()
 
 
-func _on_body_entered(_body):
+func _on_retrieval_hurtbox_body_entered(_body: Node2D):
 	if type == "health":
 		Globals.health += 10
 	
@@ -37,7 +44,15 @@ func _on_body_entered(_body):
 	
 	if type == "grenade":
 		Globals.grenade_amount += 1
-	$AudioStreamPlayer2D.play()
-	$Sprite2D.hide()
-	await $AudioStreamPlayer2D.finished
+	
+	audio_player.play()
+	sprite.hide()
+
+	# disable collision shapes on next frame so it stops processing collision
+	# after the item has disappeared but the object hasn't been freed yet
+	# as it is waiting for the audio to finish playing
+	collision_shape.set_deferred("disabled", true)
+	retrieval_hurtbox_shape.set_deferred("disabled", true)
+	
+	await audio_player.finished
 	queue_free()

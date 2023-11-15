@@ -31,7 +31,7 @@ color = Color(0.117647, 1, 1, 0.384314)
 color_ramp = SubResource("GradientTexture1D_50cbg")
 
 [node name="Player" type="CharacterBody2D" groups=["Entity"]]
-collision_mask = 31
+collision_mask = 15
 script = ExtResource("1_4ypwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

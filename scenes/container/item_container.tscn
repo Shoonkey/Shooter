@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjdlrxy1jsrcv"]
 
 [ext_resource type="Script" path="res://scenes/container/item_container.gd" id="1_1gcyt"]
-[ext_resource type="AudioStream" uid="uid://jqcx4ot62r3w" path="res://audio/container_hit.mp3" id="2_7s338"]
+[ext_resource type="AudioStream" uid="uid://jqcx4ot62r3w" path="res://graphics/ui/audio/container_hit.mp3" id="2_7s338"]
 
 [node name="ItemContainer" type="StaticBody2D" groups=["Container"]]
 collision_layer = 4

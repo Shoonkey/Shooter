@@ -1,22 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://bifw6rhc343wl"]
+[gd_scene load_steps=8 format=3 uid="uid://bifw6rhc343wl"]
 
 [ext_resource type="Script" path="res://scenes/items/item.gd" id="1_nanys"]
 [ext_resource type="Texture2D" uid="uid://bc8f5aq6hl7rx" path="res://graphics/items/orb2.png" id="1_refey"]
 [ext_resource type="Texture2D" uid="uid://b88pu3e5xwdnv" path="res://graphics/lights/textures/circle.png" id="2_g1mif"]
-[ext_resource type="AudioStream" uid="uid://ddyyxu3spsl75" path="res://audio/item.mp3" id="4_bapm7"]
+[ext_resource type="AudioStream" uid="uid://ddyyxu3spsl75" path="res://graphics/ui/audio/item.mp3" id="4_bapm7"]
+[ext_resource type="PackedScene" uid="uid://bf1k4yeflkm7d" path="res://scenes/collision/hurtbox.tscn" id="5_516dk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_glmai"]
-radius = 58.0086
+[sub_resource type="CircleShape2D" id="CircleShape2D_on6ed"]
+radius = 58.0
 
-[node name="Item" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_nvjjf"]
+radius = 58.0
+
+[node name="Item" type="CharacterBody2D"]
 collision_layer = 16
+collision_mask = 4
 script = ExtResource("1_nanys")
+friction = 180
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_refey")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_glmai")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.5
@@ -27,4 +30,15 @@ texture_scale = 0.4
 stream = ExtResource("4_bapm7")
 volume_db = -15.0
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_on6ed")
+
+[node name="RetrievalHurtbox" parent="." instance=ExtResource("5_516dk")]
+collision_layer = 0
+
+[node name="CollisionShape2D" parent="RetrievalHurtbox" index="0"]
+shape = SubResource("CircleShape2D_nvjjf")
+
+[connection signal="body_entered" from="RetrievalHurtbox" to="." method="_on_retrieval_hurtbox_body_entered"]
+
+[editable path="RetrievalHurtbox"]

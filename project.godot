@@ -28,6 +28,10 @@ window/size/viewport_height=720
 mouse_cursor/custom_image="res://graphics/ui/crosshair159.png"
 mouse_cursor/custom_image_hotspot=Vector2(17, 17)
 
+[dotnet]
+
+project/assembly_name="Shooter"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

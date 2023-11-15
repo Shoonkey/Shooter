@@ -39,7 +39,7 @@ size = Vector2(413, 717)
 [node name="Inside" instance=ExtResource("1_gacf6")]
 script = ExtResource("2_h43ar")
 
-[node name="Decals" parent="." index="0"]
+[node name="Decals" parent="." index="1"]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -144,7 +144,7 @@ position = Vector2(-611, 1638)
 rotation = -0.785397
 texture = ExtResource("5_m73un")
 
-[node name="Ground" parent="." index="1"]
+[node name="Ground" parent="." index="2"]
 position = Vector2(146, 83)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
@@ -584,7 +584,22 @@ collision_mask = 11
 position = Vector2(1133, 1733)
 polygon = PackedVector2Array(-8148, 3133, -8156, 3094, -8200, 3098, -8220, 3084, -8240, 3040, -8220, 2995, -8118, 2981, -8088, 3047, -8067, 3085, -8093, 3127)
 
-[node name="Items" parent="." index="3"]
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." index="4"]
+visible = false
+color = Color(0.588235, 0.682353, 0.705882, 1)
+blend_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="ExitGateArea" type="Area2D" parent="." index="5"]
+position = Vector2(4774, 394)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitGateArea" index="0"]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_55jcg")
+
+[node name="Items" parent="." index="6"]
 metadata/_edit_lock_ = true
 
 [node name="Crate" parent="Items" index="0" instance=ExtResource("8_kfjew")]
@@ -679,22 +694,7 @@ rotation = -1.57078
 position = Vector2(-6992, -299)
 rotation = -3.14157
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." index="4"]
-visible = false
-color = Color(0.588235, 0.682353, 0.705882, 1)
-blend_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="ExitGateArea" type="Area2D" parent="." index="5"]
-position = Vector2(4774, 394)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitGateArea" index="0"]
-position = Vector2(0, -4.5)
-shape = SubResource("RectangleShape2D_55jcg")
-
-[node name="Enemies" parent="." index="7"]
+[node name="Enemies" parent="." index="8"]
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -761,7 +761,7 @@ position = Vector2(-5534, 4626)
 [node name="Scout2" parent="Enemies" index="20" instance=ExtResource("27_f528g")]
 position = Vector2(-212, -323)
 
-[node name="Player" parent="." index="8"]
+[node name="Player" parent="." index="9"]
 position = Vector2(4266, 397)
 
 [node name="PointLight2D" type="PointLight2D" parent="Player" index="8"]
@@ -769,7 +769,7 @@ position = Vector2(-38, 36)
 texture = ExtResource("7_bhnpi")
 texture_scale = 3.0
 
-[node name="Lights" parent="." index="9"]
+[node name="Lights" parent="." index="10"]
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
